@@ -1,0 +1,89 @@
+#rtc-fab {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 99999;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #FF4500;
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  transition: background 0.2s, transform 0.15s, opacity 0.3s;
+  opacity: 0;
+  animation: rtc-fade-in 0.3s ease forwards;
+}
+
+@keyframes rtc-fade-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+#rtc-fab:hover {
+  transform: scale(1.08);
+}
+
+#rtc-fab.success {
+  background: #22C55E;
+  pointer-events: none;
+}
+
+#rtc-fab.already-added {
+  background: #555;
+  pointer-events: none;
+}
+
+#rtc-fab.error {
+  background: #EF4444;
+}
+
+#rtc-fab.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+#rtc-fab .spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: rtc-spin 0.6s linear infinite;
+}
+
+@keyframes rtc-spin {
+  to { transform: rotate(360deg); }
+}
+
+#rtc-toast {
+  position: fixed;
+  bottom: 140px;
+  right: 20px;
+  z-index: 99999;
+  background: #1A1A1A;
+  color: #E0E0E0;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'SF Mono', 'Cascadia Code', monospace;
+  border: 1px solid #333;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+#rtc-toast.show {
+  opacity: 1;
+}
+
+#rtc-toast.error {
+  border-color: #EF4444;
+  color: #EF4444;
+}

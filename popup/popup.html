@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup.css">
+  <title>Reddit → Claude</title>
+</head>
+<body>
+  <div class="popup">
+    <header class="header">
+      <div class="header-left">
+        <h1 class="title">Reddit → Claude</h1>
+        <span class="badge" id="threadCount">0</span>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn" id="helpBtn" title="How to use">?</button>
+        <button class="icon-btn" id="settingsBtn" title="Settings">⚙</button>
+      </div>
+    </header>
+
+    <!-- Instructions Panel -->
+    <div class="instructions-panel" id="instructionsPanel" style="display:none;">
+      <div class="instruction-step">
+        <span class="step-num">1</span>
+        <span class="step-text">Browse Reddit and click the <strong>+</strong> button on any thread to capture it</span>
+      </div>
+      <div class="instruction-step">
+        <span class="step-num">2</span>
+        <span class="step-text">Use <strong>Bulk+</strong> to search a subreddit by keywords and collect multiple threads at once</span>
+      </div>
+      <div class="instruction-step">
+        <span class="step-num">3</span>
+        <span class="step-text">Click <strong>Export All</strong> to download a .md file, or <strong>Copy</strong> to clipboard</span>
+      </div>
+      <div class="instruction-step">
+        <span class="step-num">4</span>
+        <span class="step-text">Upload the .md to <strong>Claude</strong> and ask it to analyze pain points, unmet needs, and build opportunities</span>
+      </div>
+      <div class="instruction-divider"></div>
+      <div class="instruction-step">
+        <span class="step-num">5</span>
+        <span class="step-text"><strong>Claude Code users:</strong> run <code>/reddit-analyze</code> to auto-analyze exports.<br><a href="https://github.com/cloudatreides/Reddit-to-Claude-Exporter-for-Product-Analysis#reddit-analyze-skill" id="skillDownload" target="_blank">Get the skill →</a></span>
+      </div>
+    </div>
+
+    <div class="settings-panel" id="settingsPanel" style="display:none;">
+      <div class="setting-row">
+        <label for="maxComments">Max comments per thread</label>
+        <input type="number" id="maxComments" value="30" min="5" max="200" class="setting-input">
+      </div>
+      <div class="setting-row">
+        <label for="maxDepth">Max comment depth</label>
+        <select id="maxDepth" class="setting-input">
+          <option value="1">1 level</option>
+          <option value="2" selected>2 levels</option>
+          <option value="3">3 levels</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label for="sortBy">Sort comments by</label>
+        <select id="sortBy" class="setting-input">
+          <option value="top" selected>Top</option>
+          <option value="new">New</option>
+          <option value="controversial">Controversial</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label for="autoPrompt">Prepend analysis prompt</label>
+        <input type="checkbox" id="autoPrompt" class="setting-checkbox">
+      </div>
+    </div>
+
+    <!-- Bulk Add Panel -->
+    <div class="bulk-panel" id="bulkPanel" style="display:none;">
+      <div class="bulk-tabs">
+        <button class="bulk-tab active" data-tab="urls">Paste URLs</button>
+        <button class="bulk-tab" data-tab="subreddit">From Subreddit</button>
+      </div>
+
+      <div class="bulk-content" id="bulkUrls">
+        <textarea id="bulkUrlInput" class="bulk-textarea" placeholder="Paste Reddit thread URLs, one per line..." rows="5"></textarea>
+        <button class="btn btn-primary btn-sm" id="bulkAddBtn">Add All</button>
+      </div>
+
+      <div class="bulk-content" id="bulkSubreddit" style="display:none;">
+        <div class="bulk-row">
+          <input type="text" id="subredditInput" class="setting-input full" placeholder="subreddit name (no r/)">
+        </div>
+        <div class="bulk-row">
+          <input type="text" id="keywordInput" class="setting-input full" placeholder="keywords, comma separated (optional)">
+        </div>
+        <div class="bulk-row">
+          <label>Threads:</label>
+          <input type="number" id="threadLimitInput" class="setting-input" value="10" min="1" max="50">
+        </div>
+        <button class="btn btn-primary btn-sm" id="subredditFetchBtn">Collect</button>
+      </div>
+
+      <div class="bulk-progress" id="bulkProgress" style="display:none;">
+        <span id="bulkProgressText">Fetching...</span>
+        <div class="progress-bar"><div class="progress-fill" id="bulkProgressFill"></div></div>
+      </div>
+    </div>
+
+    <div class="queue" id="queueList">
+      <div class="empty-state" id="emptyState">
+        <p>No threads collected yet</p>
+        <span class="empty-hint">Browse Reddit and click the + button on any thread to start collecting</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="exportBtn" disabled>Export All</button>
+      <button class="btn btn-secondary" id="copyBtn" disabled>Copy</button>
+      <button class="btn btn-secondary" id="bulkBtn">Bulk+</button>
+      <button class="btn btn-danger" id="clearBtn" disabled>Clear Queue</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
