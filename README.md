@@ -60,14 +60,29 @@ Reads your exported `.md` file and extracts:
 
 ### Install the Skill
 
-1. Create the skill directory:
-   ```bash
-   mkdir -p ~/.claude/skills/reddit-analyze
-   ```
+**Option A — One-line install (Mac/Linux):**
+```bash
+mkdir -p ~/.claude/skills/reddit-analyze && curl -o ~/.claude/skills/reddit-analyze/skill.md https://raw.githubusercontent.com/cloudatreides/Reddit-to-Claude-Exporter-for-Product-Analysis/main/skill.md
+```
 
-2. Create `~/.claude/skills/reddit-analyze/skill.md` with the contents from [`skill.md`](skill.md) in this repo.
+**Option B — One-line install (Windows PowerShell):**
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\reddit-analyze" | Out-Null; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/cloudatreides/Reddit-to-Claude-Exporter-for-Product-Analysis/main/skill.md" -OutFile "$env:USERPROFILE\.claude\skills\reddit-analyze\skill.md"
+```
 
-3. Run `/reddit-analyze` in Claude Code after exporting threads. It auto-finds the latest export in your Downloads folder.
+**Option C — Manual install:**
+1. Download [`skill.md`](skill.md) from this repo (click the file, then click the download/raw button)
+2. On your computer, find your home folder:
+   - **Mac/Linux:** `~/.claude/skills/reddit-analyze/`
+   - **Windows:** `C:\Users\YourName\.claude\skills\reddit-analyze\`
+3. Create the `reddit-analyze` folder inside `.claude/skills/` if it doesn't exist
+4. Put the downloaded `skill.md` file inside that folder
+
+**Then use it:**
+1. Export some Reddit threads with the extension
+2. Open Claude Code in your terminal
+3. Type `/reddit-analyze`
+4. It auto-finds your latest export and generates a full signal analysis
 
 ### Example Output
 
